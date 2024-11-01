@@ -15,6 +15,6 @@ public class CardObject : MonoBehaviour
         if (CardData == null) return;
 
         SuitText.text = CardData.Suit.ToString();
-        RankText.text = (int)CardData.Rank < 10? ((int)CardData.Rank).ToString(): CardData.Rank.ToString();
+        RankText.text = (int)CardData.Rank < 10? ((int)CardData.Rank + 1).ToString(): CardData.Rank.ToString();
     }
 }
