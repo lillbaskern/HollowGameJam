@@ -14,7 +14,9 @@ public class CardManager : MonoBehaviour
 
     public List<List<Card[]>> PlayerStacks;
 
-    public CardObject CardObject;
+    public GameObject CardObject;
+
+    public GameObject Canvas;
 
     void Start()
     {
@@ -61,7 +63,14 @@ public class CardManager : MonoBehaviour
             {
                 Debug.Log($"player {j + 1}'s {card.Suit}, {card.Rank}");
             }
-        
+        }
+
+        foreach(Card card in PlayerCards[0])
+        {
+            GameObject cardObject = Instantiate(CardObject);
+
+            cardObject.GetComponent<CardObject>().AddData(card);
+            cardObject.transform.SetParent(Canvas.transform);
         }
     }
 }
