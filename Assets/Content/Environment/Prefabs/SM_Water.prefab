@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8586214314231537331}
   - component: {fileID: 4650866257879251247}
   m_Layer: 0
-  m_Name: SM_Circle
+  m_Name: SM_Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
