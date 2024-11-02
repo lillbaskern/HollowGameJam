@@ -270,12 +270,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberOfDecks: 1
-  NumberOfPlayers: 2
+  NumberOfPlayers: 4
   CurrentPlayersTurn: 0
   CardObject: {fileID: 6627364756559372571, guid: 86ea49a91022618428dbafea434aa917, type: 3}
   CardSlotObject: {fileID: 5662601020749939868, guid: 68eff595cf5b64c43b92cc914e78c846, type: 3}
   CardContainer: {fileID: 1686993700}
   PlayerHand: {fileID: 374522978}
+  ContextButton: {fileID: 1556779042}
+  PlayerPromptPanel: {fileID: 613288300}
   Canvas: {fileID: 2011353549}
 --- !u!1 &374522978 stripped
 GameObject:
@@ -403,6 +405,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &613288300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1830547526634135203, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+  m_PrefabInstance: {fileID: 6211901938810371405}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &829125765
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +538,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1556779042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7347873938642140699, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+  m_PrefabInstance: {fileID: 6211901938810371405}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1686993700 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1720958307040257027, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
@@ -549,6 +561,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 740432677670817912, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2608850643974447292, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
       propertyPath: m_Name
       value: PlayUI
@@ -563,6 +579,58 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3213469499120870517, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
       propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 330585548}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerAskForCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 330585548}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerAskForCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5026110626188889310, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6679318964682247099, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
@@ -644,6 +712,34 @@ PrefabInstance:
     - target: {fileID: 6679318964682247099, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7197493980647167570, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 330585548}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerAskForCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8202608529831633036, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

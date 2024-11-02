@@ -26,7 +26,8 @@ public class CardManager : MonoBehaviour
 
     public GameObject CardContainer;
     public GameObject PlayerHand;
-    public GameObject contextButton;
+    public GameObject ContextButton;
+    public GameObject PlayerPromptPanel;
 
     
     
@@ -127,24 +128,14 @@ public class CardManager : MonoBehaviour
 
     public void OnContextButtonClicked()
     {
-        if (CurrentPlayersTurn != 0) 
+        if (CurrentPlayersTurn != 0)
         {
             Debug.Log($"human player pressed button but it is {CurrentPlayersTurn}s turn!");
-            return; 
+            return;
         }
 
         var selectedCards = HandVisualizer.Instance.SelectedCards;
         if (selectedCards.Count <= 0) return;
-
-
-        if(selectedCards.Count < 4)
-        {
-            //prompt player for which player to ask later
-            AskForCard(CurrentPlayersTurn, selectedCards[0].CardData, 1);
-            return;
-        }
-
-
 
         if(selectedCards.Count == 4)
         {
@@ -177,7 +168,44 @@ public class CardManager : MonoBehaviour
                 return;
             }
         }
+
+        if(selectedCards.Count < 4)
+        {
+            if(NumberOfPlayers > 2)
+            {
+                CardToAskFor = selectedCards[0].CardData;
+                OpenPlayerPromptPanel();
+                return;
+            }
+
+            //prompt player for which player to ask later
+            AskForCard(CurrentPlayersTurn, selectedCards[0].CardData, 1);
+        }
+
     }
+
+    private void OpenPlayerPromptPanel()
+    {
+        PlayerPromptPanel.SetActive(true);
+
+        for (int i = 0; i < NumberOfPlayers - 1; i++) 
+        {
+            PlayerPromptPanel.transform.GetChild(i).gameObject.SetActive(true);
+        }
+    }
+
+    public void SetCardToAskFor(CardObject card)
+    {
+        CardToAskFor = card.CardData;
+    }
+    public Card CardToAskFor;
+    public void PlayerAskForCard(int player)
+    {
+        if (CardToAskFor == null) return;
+
+        AskForCard(0, CardToAskFor, player);
+    }
+
 
     public void AskForCard(int askingPlayer, Card card, int askedPlayer)
     {
@@ -277,7 +305,7 @@ public class CardManager : MonoBehaviour
     {
         if (CurrentPlayersTurn == 0) 
         {
-            contextButton.SetActive(true);
+            ContextButton.SetActive(true);
         }
         if(HandVisualizer.Instance != null)
             HandVisualizer.Instance.UpdateHand(PlayerCards[0]);

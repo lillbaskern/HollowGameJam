@@ -837,6 +837,54 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1740765146}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerAskForCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4205950428307489489, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1740765146}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerAskForCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883634320498725188, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 6679318964682247099, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -916,6 +964,30 @@ PrefabInstance:
     - target: {fileID: 6679318964682247099, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1740765146}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlayerAskForCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CardManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961317002911050857, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8202608529831633036, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1528,13 +1600,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberOfDecks: 1
-  NumberOfPlayers: 2
+  NumberOfPlayers: 4
   CurrentPlayersTurn: 0
   CardObject: {fileID: 6627364756559372571, guid: 86ea49a91022618428dbafea434aa917, type: 3}
   CardSlotObject: {fileID: 5662601020749939868, guid: 68eff595cf5b64c43b92cc914e78c846, type: 3}
   CardContainer: {fileID: 1144406345}
   PlayerHand: {fileID: 1144406344}
-  contextButton: {fileID: 1144406343}
+  ContextButton: {fileID: 1144406343}
+  PlayerPromptPanel: {fileID: 2004762811}
   Canvas: {fileID: 1144406342}
 --- !u!4 &1740765147
 Transform:
@@ -1811,6 +1884,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 329822811306432361, guid: 08ff035084526cf4bbb6d2091ba35bc8, type: 3}
   m_PrefabInstance: {fileID: 1994752052}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2004762811 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1830547526634135203, guid: 105441fa3c7cdbf46a1331d0f7cc7d5e, type: 3}
+  m_PrefabInstance: {fileID: 1144406341}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2503738422727606267
 PrefabInstance:
