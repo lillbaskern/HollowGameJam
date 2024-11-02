@@ -80,6 +80,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 058f73f8d9231974bab8c0afe1c0e0b0, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 955cb7bc6c266bc459db5eaad60a777d, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 058f73f8d9231974bab8c0afe1c0e0b0, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 757240d21f6ec424393c735def3bb666, type: 2}
     - target: {fileID: 919132149155446097, guid: 058f73f8d9231974bab8c0afe1c0e0b0, type: 3}
       propertyPath: m_Name
       value: Island
