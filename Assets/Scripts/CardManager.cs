@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [DefaultExecutionOrder(1)]
@@ -27,6 +28,8 @@ public class CardManager : MonoBehaviour
     public GameObject PlayerHand;
     public Canvas Canvas;
 
+    public List<CPUManager> ComputerPlayers { get; private set; }
+
     void Awake()
     {
         if (Instance != null && Instance != this) 
@@ -41,15 +44,29 @@ public class CardManager : MonoBehaviour
         Deck = new();
         PlayerCards = new();
         PlayerStacks = new();
+        ComputerPlayers = new();
         for(int i = 0; i < NumberOfPlayers; i++)
         {
             PlayerStacks.Add(new());
+            if (i == 0) continue;
+            CPUManager cpu = new CPUManager();
+            cpu.PlayerIndex = i;
+            ComputerPlayers.Add(cpu);
+            
         }
         SpawnCards();
 
-
         CurrentPlayersTurn = UnityEngine.Random.Range(0, NumberOfPlayers - 1);
+
+        StartCoroutine(FrameWait());
+
+        IEnumerator FrameWait()
+        {
+            yield return new WaitForSeconds(0.08f);
+            NextTurn();
+        }
     }
+
 
     private void SpawnCards()
     {
@@ -157,7 +174,7 @@ public class CardManager : MonoBehaviour
         if (card == null) return;
 
         List<Card> foundCards = new List<Card>();
-
+        Debug.Log($"{askingPlayer} asking {askedPlayer} for any {card.Rank}s");
         for (int i = 0; i < PlayerCards[askedPlayer].Count; i++) 
         {
             if (PlayerCards[askedPlayer][i].Rank == card.Rank)
@@ -175,6 +192,10 @@ public class CardManager : MonoBehaviour
 
             RemovePlayerCards(foundCards.ToArray(), askedPlayer);
             Debug.Log("du får kort");
+            if(CurrentPlayersTurn != 0)
+            {
+                PromptCPU(CurrentPlayersTurn);
+            }
             return;
         }
 
@@ -183,6 +204,11 @@ public class CardManager : MonoBehaviour
         AddCard(PullRandom(), askingPlayer);
 
         NextTurn();
+    }
+
+    private void PromptCPU(int currentPlayersTurn)
+    {
+        ComputerPlayers[CurrentPlayersTurn - 1].ProcessTurn(PlayerCards[currentPlayersTurn]);
     }
 
     public void EndGame()
@@ -209,13 +235,20 @@ public class CardManager : MonoBehaviour
             return;
         }
 
-        //CurrentPlayersTurn++;
+        CurrentPlayersTurn = ++CurrentPlayersTurn%NumberOfPlayers;
+
+        Debug.Log("current players turn: " + CurrentPlayersTurn);
+
+        if (CurrentPlayersTurn > 0)
+            PromptCPU(CurrentPlayersTurn);
+
         UpdatePlayerVisual();
     }
 
     public void UpdatePlayerVisual()
     {
-        HandVisualizer.Instance.UpdateHand(PlayerCards[0]);
+        if(HandVisualizer.Instance != null)
+            HandVisualizer.Instance.UpdateHand(PlayerCards[0]);
     }
 
     public void RemovePlayerCards(Card[] cards, int player)
@@ -224,6 +257,7 @@ public class CardManager : MonoBehaviour
         {
             PlayerCards[player].Remove(cards[i]);
         }
+        UpdatePlayerVisual();
     }
 
     public void SwapPlayerCards(CardObject[] cards, int fromPlayer, int toPlayer)

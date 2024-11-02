@@ -101,18 +101,21 @@ public class HandVisualizer : MonoBehaviour
             PlayerHand.Add(CardContainer.GetChild(i));
         }
 
-        Debug.Log(PlayerHand.Count);
     }
 
     public void UpdateHand(List<Card> cards)
     {
+        foreach (var card in SelectedCards) 
+        {
+            card.selected = false;
+        }
         SelectedCards.Clear();
         for (int i = 0; i < transform.childCount; i++)
         {
             var cardInHand = CardContainer.GetChild(i).GetComponent<CardObject>();
             if (!cards.Contains(cardInHand.CardData))
             {
-                Destroy(cardInHand);
+                Destroy(cardInHand.gameObject);
             }
         }
 
