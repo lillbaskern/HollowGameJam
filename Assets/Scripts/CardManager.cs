@@ -26,6 +26,10 @@ public class CardManager : MonoBehaviour
 
     public GameObject CardContainer;
     public GameObject PlayerHand;
+    public GameObject contextButton;
+
+    
+    
     public Canvas Canvas;
 
     public List<CPUManager> ComputerPlayers { get; private set; }
@@ -123,6 +127,12 @@ public class CardManager : MonoBehaviour
 
     public void OnContextButtonClicked()
     {
+        if (CurrentPlayersTurn != 0) 
+        {
+            Debug.Log($"human player pressed button but it is {CurrentPlayersTurn}s turn!");
+            return; 
+        }
+
         var selectedCards = HandVisualizer.Instance.SelectedCards;
         if (selectedCards.Count <= 0) return;
 
@@ -213,7 +223,20 @@ public class CardManager : MonoBehaviour
 
     public void EndGame()
     {
-        Debug.Log("Game over");
+        int currentLeader = -1;
+        int currentLeaderStacks = -1;
+
+
+        for (int i = 0; i < PlayerStacks.Count; i++)
+        {
+            
+            if (PlayerStacks[i].Count > currentLeaderStacks)
+            {
+                currentLeader = i;
+                currentLeaderStacks = PlayerStacks[i].Count;
+            }
+        }
+        Debug.Log($"Game finished! Player {currentLeader} won! (0 is human)");
     }
 
     public void AddCard(Card card, int player) 
@@ -241,12 +264,21 @@ public class CardManager : MonoBehaviour
 
         if (CurrentPlayersTurn > 0)
             PromptCPU(CurrentPlayersTurn);
+        else
+        {
+            HandVisualizer.Instance.CanShowButton = true;
+        }
+
 
         UpdatePlayerVisual();
     }
 
     public void UpdatePlayerVisual()
     {
+        if (CurrentPlayersTurn == 0) 
+        {
+            contextButton.SetActive(true);
+        }
         if(HandVisualizer.Instance != null)
             HandVisualizer.Instance.UpdateHand(PlayerCards[0]);
     }
@@ -258,11 +290,6 @@ public class CardManager : MonoBehaviour
             PlayerCards[player].Remove(cards[i]);
         }
         UpdatePlayerVisual();
-    }
-
-    public void SwapPlayerCards(CardObject[] cards, int fromPlayer, int toPlayer)
-    {
-
     }
 
     public CardObject MakeNewCardObject(Card card)

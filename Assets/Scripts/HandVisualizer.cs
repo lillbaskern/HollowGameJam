@@ -14,6 +14,8 @@ public class HandVisualizer : MonoBehaviour
     public Button ContextButton;
 
     public Transform CardContainer;
+
+    public bool CanShowButton = false;
     
 
     void Start()
@@ -43,7 +45,7 @@ public class HandVisualizer : MonoBehaviour
         }
         if (SelectedCards.Count <= 0)
             return;
-        else
+        else if(SelectedCards.Count > 0 && CanShowButton)
             ContextButton.gameObject.SetActive(true);
 
         if(SelectedCards.Count >= 1 && SelectedCards.Count <4)
@@ -79,7 +81,7 @@ public class HandVisualizer : MonoBehaviour
             lastCard = card;
         }
         Debug.Log(matchCount);
-        if (cardsMatch && matchCount >= 4)
+        if (cardsMatch && matchCount >= 4 && CanShowButton)
         {
             ContextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Stack cards";
             ContextButton.gameObject.SetActive(true);
@@ -96,8 +98,10 @@ public class HandVisualizer : MonoBehaviour
     {
         SelectedCards.Clear();
         PlayerHand.Clear();
-        for (int i = 0; i < PlayerHand.Count; i++)
+        for (int i = 0; i < CardContainer.childCount; i++)
         {
+            CardContainer.GetChild(i).GetComponent<CardObject>().selected = false;
+            CardContainer.GetChild(i).GetComponent<CardObject>().UpdateOffset();
             PlayerHand.Add(CardContainer.GetChild(i));
         }
 
@@ -108,6 +112,7 @@ public class HandVisualizer : MonoBehaviour
         foreach (var card in SelectedCards) 
         {
             card.selected = false;
+            card.UpdateOffset();
         }
         SelectedCards.Clear();
         for (int i = 0; i < transform.childCount; i++)

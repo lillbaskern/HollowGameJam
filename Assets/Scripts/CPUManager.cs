@@ -33,6 +33,17 @@ public class CPUManager
                 }
             }
         }
+
+
+
+        Debug.Log($"matches for cpu player {PlayerIndex}, {matches.Count}");
+
+        foreach (var list in matches) 
+        {
+            Debug.Log($"{list[0]}, {list.Count}");
+        }
+
+
         if (matches.Count > 0)
         {
             int topMatch = -1;
