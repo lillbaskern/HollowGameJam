@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +10,6 @@ public class CPUManager
     void Start()
     {
     }
-
 
 
     public void ProcessTurn(List<Card> cards)
@@ -58,24 +58,44 @@ public class CPUManager
                 }
             }
             int randomPlayer = Random.Range(0, CardManager.Instance.NumberOfPlayers);
-            if (randomPlayer == PlayerIndex)
-            {
-                randomPlayer -= 1; //because human player is always 0
-            }
-            if (topMatch != -1 && matches[topMatch][0].Rank != LastAskedRank)
-            {
 
-                CardManager.Instance.AskForCard(PlayerIndex, matches[topMatchIndex][0], randomPlayer);
+            CardManager.Instance.StartCoroutine(WaitBeforeAskForCard());
+            return;
+            IEnumerator WaitBeforeAskForCard()
+            {
+                float randSecWait = Random.Range(0.6f, 3f);
+                yield return new WaitForSeconds(randSecWait);
+
+                if (randomPlayer == PlayerIndex)
+                {
+                    randomPlayer -= 1; //because human player is always 0
+                }
+                if (topMatch != -1 && matches[topMatch][0].Rank != LastAskedRank)
+                {
+
+                    CardManager.Instance.AskForCard(PlayerIndex, matches[topMatchIndex][0], randomPlayer);
+                }
+                else
+                    CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], randomPlayer);
             }
-            else
-                CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], randomPlayer);
         }
+        
+        
+        
         int rndPlayer = Random.Range(0, CardManager.Instance.NumberOfPlayers);
         if (rndPlayer == PlayerIndex)
         {
             rndPlayer -= 1; //because human player is always 0
         }
-        CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], rndPlayer);
+        CardManager.Instance.StartCoroutine(WaitBeforeAsk());
+        IEnumerator WaitBeforeAsk()
+        {
+            float randSecWait = Random.Range(0.6f, 3f);
+            yield return new WaitForSeconds(randSecWait);
+            CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], rndPlayer);
+        }
+
+        
 
 
     }

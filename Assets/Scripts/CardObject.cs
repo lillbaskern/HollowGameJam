@@ -157,10 +157,6 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
         if (!selected)
             HandVisualizer.Instance.SelectedCards.Remove(this);
 
-        foreach (var card in HandVisualizer.Instance.SelectedCards)
-        {
-            Debug.Log(card.CardData.Rank);
-        }
         UpdateOffset();
     }
 
