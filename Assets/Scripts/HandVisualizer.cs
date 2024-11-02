@@ -3,30 +3,37 @@ using UnityEngine;
 
 public class HandVisualizer : MonoBehaviour
 {
-    public List<CardObject> PlayerHand;
+    public static HandVisualizer Instance {  get; private set; }
 
-    //int index = (int)suit * 13 + (int)rank; - for getting an index for a card sprite out of 52;
+    public List<Transform> PlayerHand {  get; private set; }
+
+
+    
 
     void Start()
     {
-        PlayerHand = new();
-    }
-
-    public void AddCards(List<CardObject> cards)
-    {
-        foreach (CardObject card in cards)
+        if(Instance != null && Instance != this)
         {
-            PlayerHand.Add(card);
+            Destroy(this);
         }
+        else
+        {
+            Instance = this;
+        }
+
+        PlayerHand = new();
 
     }
 
 
     public void UpdateHand()
     {
-        foreach (CardObject card in PlayerHand)
+        PlayerHand.Clear();
+        for (int i = 0; i < PlayerHand.Count; i++)
         {
-
+            PlayerHand.Add(transform.GetChild(i));
         }
     }
+
+
 }
