@@ -11,7 +11,6 @@ using System.Collections.Generic;
 public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     public Transform Hand;
-
     public Card CardData;
 
     Transform CardSlot;
@@ -19,13 +18,13 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
     public TextMeshProUGUI SuitText;
     public TextMeshProUGUI RankText;
 
+    public Transform CardContainer;
 
     Vector2 targetPos;
 
 
     private Canvas canvas;
     private Image imageComponent;
-    [SerializeField]
     private Vector3 offset;
 
 
@@ -43,6 +42,9 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
     [Header("States")]
     public bool isHovering;
     public bool isDragging = false;
+
+    public static bool DraggingHappening = false;
+
     [HideInInspector] public bool wasDragged;
 
     [Header("Selection")]
@@ -55,7 +57,9 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
     {
         canvas = GetComponentInParent<Canvas>();
         imageComponent = GetComponent<Image>();
-    
+
+        CardContainer = GameObject.Find("CardContainer").transform;
+        Hand = GameObject.Find("Hand").transform;
     }
 
     public void Update()
@@ -79,7 +83,7 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
         }
         if (!isDragging)
         {
-            this.transform.position = Vector2.Lerp(transform.position, CardSlot.position, Time.deltaTime * 12);
+            this.transform.position = Vector2.Lerp(transform.position, CardSlot.position + offset, Time.deltaTime * 12);
         }
     }
 
@@ -106,7 +110,8 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
         canvas.GetComponent<GraphicRaycaster>().enabled = false;
         imageComponent.raycastTarget = false;
 
-        this.transform.SetParent(canvas.transform);
+        if(!selected)
+            this.transform.SetParent(CardContainer.transform);
 
         wasDragged = true;
     }
@@ -140,13 +145,24 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
         PointerDownEvent.Invoke(this);
         pointerDownTime = Time.time;
 
-        
+
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (this.transform.parent != null) return;
-        this.transform.SetParent(Hand, false);
+        if(!isDragging)
+            selected = !selected;
+
+        if (selected && !HandVisualizer.Instance.SelectedCards.Contains(this))
+            HandVisualizer.Instance.SelectedCards.Add(this);
+        if (!selected)
+            HandVisualizer.Instance.SelectedCards.Remove(this);
+
+        foreach (var card in HandVisualizer.Instance.SelectedCards)
+        {
+            Debug.Log(card.CardData.Rank);
+        }
+        offset = selected ? new(0, selectionOffset) : Vector3.zero;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -173,5 +189,6 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
 
     private void OnDestroy()
     {
+        Destroy(CardSlot.gameObject);
     }
 }
