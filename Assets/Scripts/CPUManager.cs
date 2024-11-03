@@ -34,6 +34,10 @@ public class CPUManager
                     cardMatches.Add(cards[j]);
                 }
             }
+            if (cardMatches.Count > 1)
+            {
+                matches.Add(cardMatches);
+            }
         }
 
 
@@ -42,7 +46,7 @@ public class CPUManager
 
         foreach (var list in matches) 
         {
-            Debug.Log($"{list[0]}, {list.Count}");
+            Debug.Log($"number of {list[0].Rank}s for player {PlayerIndex} {list.Count}");
             if(list.Count == 4)
             {
                 Debug.Log($"found stack for cpu player{PlayerIndex}, stack of {list[0].Rank}s");

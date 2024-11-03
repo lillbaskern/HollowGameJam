@@ -40,6 +40,11 @@ public class DialogueManager : MonoBehaviour
     //returns false until prompt is over
     public void ShowPrompt(string prompt)
     {
+        if(testing)
+        {
+            CardManager.Instance.CanContinue = true;
+            return;
+        }
         StartCoroutine(ShowPromptRoutine(prompt));
     }
 
@@ -77,7 +82,7 @@ public class DialogueManager : MonoBehaviour
 
         yield return null;
     }
-
+    public bool testing = false;
     //
     private void Setup(string text)
     {

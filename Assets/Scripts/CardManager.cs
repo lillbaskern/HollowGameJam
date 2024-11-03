@@ -213,6 +213,7 @@ public class CardManager : MonoBehaviour
 
                 Debug.Log($"added stack of {lastCard.CardData.Rank}s for player {CurrentPlayersTurn}");
                 UpdatePlayerVisual();
+                HandVisualizer.Instance.CanShowButton = true;
                 return;
             }
         }
@@ -466,6 +467,7 @@ public class CardManager : MonoBehaviour
     {
         if(playerIndex == 0)
         {
+            Debug.Log("helo");
             HandVisualizer.Instance.CanShowButton = true;
         }
         if (list.Count == 4)
