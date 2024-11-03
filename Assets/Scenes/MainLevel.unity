@@ -1010,6 +1010,10 @@ PrefabInstance:
       propertyPath: MaxPromptTime
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4687654533166152816, guid: 026b717eec7a75242b006e50e8a60326, type: 3}
+      propertyPath: MaxPromptLength
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 9202732729462937443, guid: 026b717eec7a75242b006e50e8a60326, type: 3}
       propertyPath: m_text
       value: Do you have any sample ext?
