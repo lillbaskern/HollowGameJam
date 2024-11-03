@@ -105,7 +105,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _Emissive_Intensity: 2.96
+    - _Emissive_Intensity: 1
     - _EnvironmentReflections: 1
     - _Float_Power_2: 4
     - _Foam: 0.27
@@ -113,7 +113,7 @@ Material:
     - _Foam_Noise_Scale: 10
     - _Foam_Ripple_Speed: 0.15
     - _Foam_Scale: 10
-    - _Fresnel_Power: 0.2
+    - _Fresnel_Power: 1.08
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -137,11 +137,11 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Deep_Color: {r: 0.11120505, g: 0.16769536, b: 0.1981132, a: 1}
+    - _Deep_Color: {r: 0.1254902, g: 0.09436864, b: 0.09436864, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Emissive_Color: {r: 0.7311321, g: 0.9210318, b: 1, a: 0}
+    - _Emissive_Color: {r: 0.7882353, g: 0.80942816, b: 1, a: 0}
     - _Foam_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Shallow_Color: {r: 0.24862051, g: 0.3252175, b: 0.3490566, a: 1}
+    - _Shallow_Color: {r: 0.18051766, g: 0.37897092, b: 0.4392157, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
