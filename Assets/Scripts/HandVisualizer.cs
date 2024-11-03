@@ -106,6 +106,14 @@ public class HandVisualizer : MonoBehaviour
         }
 
     }
+    bool gameOver = false;
+    public void GameOver()
+    {
+        gameOver = true;
+        CanShowButton = true;
+        ContextButton.gameObject.SetActive(true);
+        ContextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Main menu";
+    }
 
     public void UpdateHand(List<Card> cards)
     {

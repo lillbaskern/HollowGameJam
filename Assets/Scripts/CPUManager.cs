@@ -10,12 +10,16 @@ public class CPUManager
     public CardRank LastAskedRank;
     void Start()
     {
+
     }
 
 
     public void ProcessTurn(List<Card> cards)
     {
-        
+        //for (int i = 0; i < 4; i++)
+        //{
+        //    cards.Add(new((CardSuits)i, CardRank.Ace));
+        //}
         Debug.Log("processing turn for cpu" + PlayerIndex);
         List<List<Card>> matches = new();
         for (int i = 0; i < cards.Count; i++) 
@@ -31,6 +35,7 @@ public class CPUManager
                 if (cards[j] == cards[i]) continue;
                 if (cards[i].Rank == cards[j].Rank)
                 {
+                    Debug.Log($"card found{cards[i].Rank}");
                     cardMatches.Add(cards[j]);
                 }
             }
@@ -40,14 +45,19 @@ public class CPUManager
             }
         }
 
-
+        
 
         Debug.Log($"matches for cpu player {PlayerIndex}, {matches.Count}");
+        foreach (var card in cards) 
+        {
+            Debug.Log(card.Rank + ", " + card.Suit);
+
+        }
 
         foreach (var list in matches) 
         {
             Debug.Log($"number of {list[0].Rank}s for player {PlayerIndex} {list.Count}");
-            if(list.Count == 4)
+            if(list.Count >= 4)
             {
                 Debug.Log($"found stack for cpu player{PlayerIndex}, stack of {list[0].Rank}s");
                 CardManager.Instance.AddStackForPlayer(this.PlayerIndex, list);

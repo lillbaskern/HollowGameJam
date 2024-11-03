@@ -5,6 +5,7 @@ using TMPro;
 using Unity.Profiling.LowLevel;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(1)]
 public class CardManager : MonoBehaviour
 {
@@ -167,6 +168,11 @@ public class CardManager : MonoBehaviour
 
     public void OnContextButtonClicked()
     {
+        if (gameOver)
+        {
+            SceneManager.LoadScene(0);
+            return;
+        }
         if (CurrentPlayersTurn != 0)
         {
             Debug.Log($"human player pressed button but it is {CurrentPlayersTurn}s turn!");
@@ -351,13 +357,14 @@ public class CardManager : MonoBehaviour
 
     public void EndGame()
     {
+        gameOver = true;
         int currentLeader = -1;
         int currentLeaderStacks = -1;
 
 
         for (int i = 0; i < PlayerStacks.Count; i++)
         {
-            
+            if (PlayerStacks[i].Count == 0) continue;
             if (PlayerStacks[i].Count > currentLeaderStacks)
             {
                 currentLeader = i;
@@ -367,6 +374,16 @@ public class CardManager : MonoBehaviour
 
         if (currentLeader != 0)
             AudioManager.Instance.PlaySound("lose");
+
+        if(currentLeader == -1)
+        {
+            DialogueManager.Instance.ShowWinText("No one");
+            return;
+        }
+
+        DialogueManager.Instance.ShowWinText(playerNames[currentLeader]);
+
+
         Debug.Log($"Game finished! Player {currentLeader} won! (0 is human)");
     }
 
@@ -383,6 +400,7 @@ public class CardManager : MonoBehaviour
 
     string[] turnPlayerNames = {"your" , "the Fisherman's", "the Widow's", "the Mother's"};
     public Transform PilesParent;
+    private bool gameOver;
 
     public void NextTurn()
     {

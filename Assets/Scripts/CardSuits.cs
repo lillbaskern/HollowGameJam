@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum CardSuits
 {
-    Hearts,
+    Hearts = 0,
     Spades,
     Clubs,
     Diamonds
