@@ -43,6 +43,18 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(ShowPromptRoutine(prompt));
     }
 
+
+    public void ShowWinText(string winner)
+    {
+        StopAllCoroutines();
+        backgroundSpriteRenderer.color = new(backgroundSpriteRenderer.color.r, backgroundSpriteRenderer.color.g, backgroundSpriteRenderer.color.b, 255);
+
+        textMeshPro.color = new(textMeshPro.color.r, textMeshPro.color.g, textMeshPro.color.b, 255);
+
+
+        textMeshPro.text = $"{winner} wins.";
+    }
+
     public void SkipPrompt()
     {
         StopAllCoroutines();
