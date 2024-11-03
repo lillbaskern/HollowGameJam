@@ -15,7 +15,9 @@ public class DialogueManager : MonoBehaviour
 
     private string playerSays = "Hello world!";
     private string askForCard = "Player #, " + "CardRank" + " ?";
+    [SerializeField]
     private float SecondMultiplier = 0.3f;
+    public float MaxPromptLength = 0.7f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -59,8 +61,9 @@ public class DialogueManager : MonoBehaviour
             yield return null;
         }
 
+        float waitLength = (prompt.Length * SecondMultiplier) - (prompt.Length * 0.05f) > MaxPromptLength ? MaxPromptLength : (prompt.Length * SecondMultiplier) - (prompt.Length * 0.05f);
 
-        yield return new WaitForSeconds((prompt.Length * SecondMultiplier) - (prompt.Length *0.05f));
+        yield return new WaitForSeconds(waitLength);
 
         i = 100;
         while (textMeshPro.alpha >= 0)

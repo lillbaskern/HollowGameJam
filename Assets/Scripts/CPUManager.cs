@@ -15,6 +15,7 @@ public class CPUManager
 
     public void ProcessTurn(List<Card> cards)
     {
+        
         Debug.Log("processing turn for cpu" + PlayerIndex);
         List<List<Card>> matches = new();
         for (int i = 0; i < cards.Count; i++) 
@@ -42,6 +43,10 @@ public class CPUManager
         foreach (var list in matches) 
         {
             Debug.Log($"{list[0]}, {list.Count}");
+            if(list.Count == 4)
+            {
+                CardManager.Instance.AddStackForPlayer(this.PlayerIndex, list);
+            }
         }
         
 

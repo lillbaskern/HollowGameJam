@@ -1,0 +1,16 @@
+* 	The CPU doesn't recognise a card rank as stacked, so they might still ask for that Rank.
+
+Funny/unintended/undesired(?) behaviours:
+*	Sometimes the opponents decide to harass and ask you multiple times in a row. 
+	This is not a bug, but rather just how the dice is thrown.
+	
+*	Sometimes the same player asks you twice for the same card rank. This happens because the CPU doesn't remember what card or player they asked last time.
+	(Technically a bug, but it is funny unintended behaviour. It's funny to imagine the CPU having brainfart moments like you would in real life.)
+	
+Missing features / Would-be-nice-to-haves:
+Stuff that would've been nice to have in the game, but have been unable to add due to priorities/time constraints.
+
+*	When you have 4 of a rank, the cards do not automatically stack. (This doesn't matter practically.)
+	
+*
+((idk where to put this text file, so I put it where I thought it was the most relevant. sorry guys. //mio))
