@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
-using static UnityEditor.PlayerSettings;
 using System.Collections.Generic;
 
 public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
