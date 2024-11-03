@@ -74,15 +74,6 @@ public class CardManager : MonoBehaviour
     {
         StartCoroutine(FrameWait());
 
-        Card[] test = new Card[] { };
-        PlayerStacks[0].Add(test);
-        SpawnPile(0);
-        PlayerStacks[0].Add(test);
-        SpawnPile(0);
-        PlayerStacks[0].Add(test);
-        SpawnPile(0);
-
-
         IEnumerator FrameWait()
         {
             yield return new WaitForSeconds(0.08f);
@@ -333,7 +324,9 @@ public class CardManager : MonoBehaviour
             if (CurrentPlayersTurn != 0)
             {
                 PromptCPU(CurrentPlayersTurn);
+                yield break;
             }
+            HandVisualizer.Instance.CanShowButton = true;
             yield break;
         }
         prompt = "No, go fish...";
@@ -421,10 +414,7 @@ public class CardManager : MonoBehaviour
 
     public void UpdatePlayerVisual()
     {
-        if (CurrentPlayersTurn == 0) 
-        {
-            ContextButton.SetActive(true);
-        }
+
         if(HandVisualizer.Instance != null)
             HandVisualizer.Instance.UpdateHand(PlayerCards[0]);
     }
@@ -474,6 +464,10 @@ public class CardManager : MonoBehaviour
 
     internal void AddStackForPlayer(int playerIndex, List<Card> list)
     {
+        if(playerIndex == 0)
+        {
+            HandVisualizer.Instance.CanShowButton = true;
+        }
         if (list.Count == 4)
         {
             PlayerStacks[playerIndex].Add(list.ToArray());

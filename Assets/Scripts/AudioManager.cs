@@ -22,7 +22,7 @@ public class AudioManager : MonoBehaviour
         switch (clip.ToLower())
         {
             case "win":
-                Debug.Log("no...");
+                PlaySFX(AudioFiles[7]);
                 break;
             case "no":
                 PlaySFX(AudioFiles[2]);

@@ -45,6 +45,7 @@ public class CPUManager
             Debug.Log($"{list[0]}, {list.Count}");
             if(list.Count == 4)
             {
+                Debug.Log($"found stack for cpu player{PlayerIndex}, stack of {list[0].Rank}s");
                 CardManager.Instance.AddStackForPlayer(this.PlayerIndex, list);
             }
         }

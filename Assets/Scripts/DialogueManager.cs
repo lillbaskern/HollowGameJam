@@ -13,8 +13,7 @@ public class DialogueManager : MonoBehaviour
 
     
 
-    private string playerSays = "Hello world!";
-    private string askForCard = "Player #, " + "CardRank" + " ?";
+ 
     [SerializeField]
     private float SecondMultiplier = 0.3f;
     public float MaxPromptLength = 0.7f;
@@ -33,7 +32,7 @@ public class DialogueManager : MonoBehaviour
         backgroundSpriteRenderer = transform.Find("Background").GetComponent<SpriteRenderer>();
         textMeshPro = transform.Find("Text").GetComponent<TextMeshPro>();
 
-        Setup(playerSays);
+        Setup("");
 
     }
 
