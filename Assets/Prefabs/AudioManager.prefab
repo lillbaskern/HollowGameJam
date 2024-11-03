@@ -55,6 +55,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d4590ac9bbb17a9469eca48db85e6f54, type: 3}
   - {fileID: 8300000, guid: e50adb43c61dde3408a892459d6ab73d, type: 3}
   - {fileID: 8300000, guid: 6c6af8e89b7597f478ea7f31dce09a0c, type: 3}
+  SFXSource: {fileID: 5598741763618888877}
+  UISFXSource: {fileID: 0}
 --- !u!1 &2520318533621661500
 GameObject:
   m_ObjectHideFlags: 0

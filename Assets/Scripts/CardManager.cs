@@ -60,15 +60,20 @@ public class CardManager : MonoBehaviour
             ComputerPlayers.Add(cpu);
             
         }
-        SpawnCards();
+        
 
-        CurrentPlayersTurn = UnityEngine.Random.Range(0, NumberOfPlayers - 1);
+    }
 
+    private void Start()
+    {
         StartCoroutine(FrameWait());
 
         IEnumerator FrameWait()
         {
             yield return new WaitForSeconds(0.08f);
+            SpawnCards();
+
+            CurrentPlayersTurn = UnityEngine.Random.Range(0, NumberOfPlayers - 1);
             NextTurn();
         }
     }
@@ -114,11 +119,18 @@ public class CardManager : MonoBehaviour
 
         foreach (Card card in PlayerCards[0])
         {
-            GameObject cardObject = Instantiate(CardObject);
+            CardObject cardObject = Instantiate(CardObject).GetComponent<CardObject>();
 
             GameObject cardSlot = Instantiate(CardSlotObject);
 
-            cardObject.GetComponent<CardObject>().AddData(card, cardSlot.transform);
+            int index = ((int)card.Suit) * 13 + ((int)card.Rank);
+
+
+
+            Debug.Log("looking for sprite at " + index);
+            Debug.Log(cardObject);
+            Debug.Log(cardSlot);
+            cardObject.AddData(card, cardSlot.transform, index);
             cardObject.transform.SetParent(CardContainer.transform);
             cardSlot.transform.SetParent(PlayerHand.transform);
         }
@@ -214,13 +226,14 @@ public class CardManager : MonoBehaviour
     public bool CanContinue = false;
     public void AskForCard(int askingPlayer, Card card, int askedPlayer)
     {
-        Debug.Log($"askforcard called. askingplayer = {askingPlayer}, card = {card}, askedplayer = {askedPlayer}");
+        Debug.Log($"askforcard called. askingplayer = {askingPlayer}, card = {card.Rank}, askedplayer = {askedPlayer}");
         StartCoroutine(AskForCardRoutine(askingPlayer, card, askedPlayer));
     }
 
     public IEnumerator AskForCardRoutine(int askingPlayer, Card card, int askedPlayer)
     {
         if (card == null) yield break;
+        HandVisualizer.Instance.CanShowButton = false;
 
         List<Card> foundCards = new List<Card>();
 
@@ -248,6 +261,7 @@ public class CardManager : MonoBehaviour
         {
             if (PlayerCards[askedPlayer][i].Rank == card.Rank)
             {
+                Debug.Log($"cards found in player {i}s hand matching rank {card.Rank}");
                 //maybe bluffing?
                 foundCards.Add(PlayerCards[askedPlayer][i]);
             }
@@ -287,6 +301,7 @@ public class CardManager : MonoBehaviour
         yield return new WaitUntil(() => CanContinue);
 
         AddCard(PullRandom(), askingPlayer);
+        HandVisualizer.Instance.CanShowButton = false;
 
         NextTurn();
     }
@@ -341,7 +356,10 @@ public class CardManager : MonoBehaviour
         Debug.Log("current players turn: " + CurrentPlayersTurn);
 
         if (CurrentPlayersTurn > 0)
+        {
+            HandVisualizer.Instance.CanShowButton = false;
             PromptCPU(CurrentPlayersTurn);
+        }
         else
         {
             HandVisualizer.Instance.CanShowButton = true;
@@ -377,7 +395,8 @@ public class CardManager : MonoBehaviour
 
         GameObject cardSlot = Instantiate(CardSlotObject);
 
-        cardObject.GetComponent<CardObject>().AddData(card, cardSlot.transform);
+        int index = (int)card.Suit * 13 + (int)card.Rank;
+        cardObject.GetComponent<CardObject>().AddData(card, cardSlot.transform, index);
         cardObject.transform.SetParent(CardContainer.transform);
         cardSlot.transform.SetParent(PlayerHand.transform);
 

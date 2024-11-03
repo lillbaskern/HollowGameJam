@@ -47,24 +47,27 @@ public class DialogueManager : MonoBehaviour
         int i = 0;
         textMeshPro.text = prompt;
 
-        while (textMeshPro.alpha < 255)
+        while (textMeshPro.alpha < 4)
         {
-            backgroundSpriteRenderer.color = new(backgroundSpriteRenderer.color.r, backgroundSpriteRenderer.color.g, backgroundSpriteRenderer.color.b, -40 + i * Time.deltaTime); //times 2 so background appears faster than text;
+            backgroundSpriteRenderer.color = new(backgroundSpriteRenderer.color.r, backgroundSpriteRenderer.color.g, backgroundSpriteRenderer.color.b, i * Time.deltaTime); //times 2 so background appears faster than text;
 
+
+
+            //textMeshPro.CrossFadeAlpha(255, 0.7f);
             textMeshPro.color = new(textMeshPro.color.r, textMeshPro.color.g, textMeshPro.color.b, i * Time.deltaTime);
             i++;
             yield return null;
         }
 
 
-        yield return new WaitForSeconds(prompt.Length * SecondMultiplier);
+        yield return new WaitForSeconds((prompt.Length * SecondMultiplier) - (prompt.Length *0.05f));
 
         i = 100;
         while (textMeshPro.alpha >= 0)
         {
-            backgroundSpriteRenderer.color = new(backgroundSpriteRenderer.color.r, backgroundSpriteRenderer.color.g, backgroundSpriteRenderer.color.b, i * 2); //times 2 so background appears faster than text;
+            backgroundSpriteRenderer.color = new(backgroundSpriteRenderer.color.r, backgroundSpriteRenderer.color.g, backgroundSpriteRenderer.color.b, i *Time.deltaTime);
 
-            textMeshPro.color = new(textMeshPro.color.r, textMeshPro.color.g, textMeshPro.color.b, i);
+            textMeshPro.color = new(textMeshPro.color.r, textMeshPro.color.g, textMeshPro.color.b, i * Time.deltaTime);
             i--;
             yield return null;
         }

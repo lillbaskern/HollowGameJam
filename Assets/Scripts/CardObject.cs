@@ -24,6 +24,7 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
 
 
     private Canvas canvas;
+    [SerializeField]
     private Image imageComponent;
     private Vector3 offset;
 
@@ -43,6 +44,7 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
     public bool isHovering;
     public bool isDragging = false;
 
+    public int Rank = -1;
 
     [HideInInspector] public bool wasDragged;
 
@@ -90,15 +92,26 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
     {
     }
 
-    public void AddData(Card card, Transform slot)
+    public void AddData(Card card, Transform slot, int spriteIndex)
     {
         CardData = card;
         CardSlot = slot;
+        Rank = (int)card.Rank; 
 
         if (CardData == null) return;
+        imageComponent.sprite = CardBank.Instance.GetSprite(spriteIndex);
 
-        SuitText.text = CardData.Suit.ToString();
-        RankText.text = (int)CardData.Rank < 10? ((int)CardData.Rank + 1).ToString(): CardData.Rank.ToString();
+
+        if (imageComponent.sprite == null)
+        {
+            SuitText.text = CardData.Suit.ToString();
+            RankText.text = (int)CardData.Rank < 10 ? ((int)CardData.Rank + 1).ToString() : CardData.Rank.ToString();
+        }
+        else
+        {
+            SuitText.text = string.Empty;
+            RankText.text = string.Empty;
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -111,7 +124,6 @@ public class CardObject : MonoBehaviour, IPointerExitHandler, IPointerEnterHandl
 
         if(!selected)
             this.transform.SetParent(CardContainer.transform);
-
         wasDragged = true;
     }
 
