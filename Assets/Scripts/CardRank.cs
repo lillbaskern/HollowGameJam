@@ -8,7 +8,7 @@ public enum CardRank
     Three,
     Four,
     Five,
-    Six,
+    Sixe,
     Seven,
     Eight,
     Nine,
