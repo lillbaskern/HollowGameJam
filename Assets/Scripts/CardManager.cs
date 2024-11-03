@@ -464,6 +464,10 @@ public class CardManager : MonoBehaviour
 
     internal void AddStackForPlayer(int playerIndex, List<Card> list)
     {
+        if(playerIndex == 0)
+        {
+            HandVisualizer.Instance.CanShowButton = true;
+        }
         if (list.Count == 4)
         {
             PlayerStacks[playerIndex].Add(list.ToArray());
