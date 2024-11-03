@@ -8,8 +8,10 @@ public class CPUManager
     public int PlayerIndex;//which player the cpu is
 
     public CardRank LastAskedRank;
+    public static List<int> AskedPlayersBuffer;
     void Start()
     {
+
     }
 
 
@@ -66,6 +68,25 @@ public class CPUManager
             {
                 randomPlayer -= 1; //because human player is always 0
             }
+
+            bool playeraskedTooManyTimesInARow = true;
+            for(int i = 0; i < AskedPlayersBuffer.Count; i++)
+            {
+                playeraskedTooManyTimesInARow = AskedPlayersBuffer[i] == randomPlayer;
+            }
+
+            if (playeraskedTooManyTimesInARow)
+            {
+                randomPlayer = Random.Range(0, CardManager.Instance.NumberOfPlayers);
+
+
+
+                if (randomPlayer == PlayerIndex)
+                {
+                    randomPlayer -= 1; //because human player is always 0
+                }
+            }
+
             if (topMatch != -1 && matches[topMatch][0].Rank != LastAskedRank)
             {
                 Debug.Log("matches found and this is first turn for cpu, asking for card from cpumanager");
@@ -74,6 +95,10 @@ public class CPUManager
             else
                 CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], randomPlayer);
 
+            AskedPlayersBuffer.Add(randomPlayer);
+            
+            if (AskedPlayersBuffer.Count > 3) 
+                AskedPlayersBuffer.RemoveAt(0);
 
             Debug.Log("asked for card from cpu manager after a match was found");
             return;

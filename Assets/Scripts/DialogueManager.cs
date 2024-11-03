@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
     private string playerSays = "Hello world!";
     private string askForCard = "Player #, " + "CardRank" + " ?";
     private float SecondMultiplier = 0.3f;
+    public float MaxPromptTime = 2.33f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,6 +43,18 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(ShowPromptRoutine(prompt));
     }
 
+    public void SkipPrompt()
+    {
+        StopAllCoroutines();
+
+        backgroundSpriteRenderer.color = new(backgroundSpriteRenderer.color.r, backgroundSpriteRenderer.color.g, backgroundSpriteRenderer.color.b, 0);
+
+        textMeshPro.color = new(textMeshPro.color.r, textMeshPro.color.g, textMeshPro.color.b, 0);
+
+        CardManager.Instance.CanContinue = true;
+
+    }
+
     IEnumerator ShowPromptRoutine(string prompt)
     {
         int i = 0;
@@ -52,15 +65,13 @@ public class DialogueManager : MonoBehaviour
             backgroundSpriteRenderer.color = new(backgroundSpriteRenderer.color.r, backgroundSpriteRenderer.color.g, backgroundSpriteRenderer.color.b, i * Time.deltaTime); //times 2 so background appears faster than text;
 
 
-
-            //textMeshPro.CrossFadeAlpha(255, 0.7f);
             textMeshPro.color = new(textMeshPro.color.r, textMeshPro.color.g, textMeshPro.color.b, i * Time.deltaTime);
             i++;
             yield return null;
         }
+        float secondsToWaitFor = (prompt.Length * SecondMultiplier) - (prompt.Length * 0.06f) > MaxPromptTime ? MaxPromptTime: (prompt.Length * SecondMultiplier) - (prompt.Length * 0.06f);
 
-
-        yield return new WaitForSeconds((prompt.Length * SecondMultiplier) - (prompt.Length *0.05f));
+        yield return new WaitForSeconds(secondsToWaitFor);
 
         i = 100;
         while (textMeshPro.alpha >= 0)
@@ -76,7 +87,6 @@ public class DialogueManager : MonoBehaviour
         yield return null;
     }
 
-    //
     private void Setup(string text)
     {
         textMeshPro.SetText(text);

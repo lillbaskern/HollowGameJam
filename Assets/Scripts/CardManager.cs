@@ -227,6 +227,7 @@ public class CardManager : MonoBehaviour
     public void AskForCard(int askingPlayer, Card card, int askedPlayer)
     {
         Debug.Log($"askforcard called. askingplayer = {askingPlayer}, card = {card.Rank}, askedplayer = {askedPlayer}");
+        HandVisualizer.Instance.CanShowButton = false;
         StartCoroutine(AskForCardRoutine(askingPlayer, card, askedPlayer));
     }
 
@@ -290,6 +291,8 @@ public class CardManager : MonoBehaviour
             {
                 PromptCPU(CurrentPlayersTurn);
             }
+            else HandVisualizer.Instance.CanShowButton = true;
+
             yield break;
         }
         prompt = "No, go fish...";

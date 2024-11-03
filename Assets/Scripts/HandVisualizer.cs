@@ -80,7 +80,6 @@ public class HandVisualizer : MonoBehaviour
                 matchCount++;
             lastCard = card;
         }
-        Debug.Log(matchCount);
         if (cardsMatch && matchCount >= 4 && CanShowButton)
         {
             ContextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Stack cards";
