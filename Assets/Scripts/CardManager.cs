@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Profiling.LowLevel;
+using Unity.VisualScripting;
 using UnityEngine;
 [DefaultExecutionOrder(1)]
 public class CardManager : MonoBehaviour
@@ -20,7 +22,7 @@ public class CardManager : MonoBehaviour
 
     public List<List<Card>> PlayerCards;
 
-    public List<List<CardObject[]>> PlayerStacks;
+    public List<List<Card[]>> PlayerStacks;
 
     public GameObject CardObject;
     public GameObject CardSlotObject;
@@ -30,11 +32,15 @@ public class CardManager : MonoBehaviour
     public GameObject ContextButton;
     public GameObject PlayerPromptPanel;
 
+    public GameObject PilePrefab;
+    public GameObject[] PileSpawnPoints;
     
     
     public Canvas Canvas;
 
     public List<CPUManager> ComputerPlayers { get; private set; }
+
+    public TextMeshProUGUI TurnText;
 
     void Awake()
     {
@@ -60,13 +66,22 @@ public class CardManager : MonoBehaviour
             ComputerPlayers.Add(cpu);
             
         }
-        
-
+        PilesParent = GameObject.Find("SpawnCardPileManager").transform;
+        TurnText = GameObject.Find("TurnText").GetComponent<TextMeshProUGUI>();
     }
 
     private void Start()
     {
         StartCoroutine(FrameWait());
+
+        Card[] test = new Card[] { };
+        PlayerStacks[0].Add(test);
+        SpawnPile(0);
+        PlayerStacks[0].Add(test);
+        SpawnPile(0);
+        PlayerStacks[0].Add(test);
+        SpawnPile(0);
+
 
         IEnumerator FrameWait()
         {
@@ -76,6 +91,26 @@ public class CardManager : MonoBehaviour
             CurrentPlayersTurn = UnityEngine.Random.Range(0, NumberOfPlayers - 1);
             NextTurn();
         }
+    }
+
+    public void SpawnPile(int player)
+    {
+        StartCoroutine(MovePile(player,Instantiate(PilePrefab, PileSpawnPoints[player].transform.position, Quaternion.identity, PilesParent).transform));
+    }
+
+    public float PileMoveSpeed = 0.02f;
+    public float PileThickness = 0.013f;
+    public IEnumerator MovePile(int player,Transform pile)
+    {
+        Vector3 endPos = new (pile.position.x, pile.position.y - 0.949f + PlayerStacks[player].Count * PileThickness, pile.position.z);
+        float time = 0;
+        while (pile.position != endPos)
+        {
+            pile.position = Vector3.Lerp(pile.position, endPos, time);
+            time += Time.deltaTime * PileMoveSpeed;
+            yield return null;
+        }
+        yield return null;
     }
 
 
@@ -98,7 +133,7 @@ public class CardManager : MonoBehaviour
         for (int j = 0; j < NumberOfPlayers; j++)
         {
             PlayerCards.Add(new List<Card>());
-            PlayerStacks.Add(new List<CardObject[]>());
+            PlayerStacks.Add(new List<Card[]>());
             for (int i = 0; i < handSize; i++)
             {
                 int index = UnityEngine.Random.Range(0, Deck.Count);
@@ -146,7 +181,7 @@ public class CardManager : MonoBehaviour
             Debug.Log($"human player pressed button but it is {CurrentPlayersTurn}s turn!");
             return;
         }
-
+        HandVisualizer.Instance.CanShowButton = false;
         var selectedCards = HandVisualizer.Instance.SelectedCards;
         if (selectedCards.Count <= 0) return;
 
@@ -168,13 +203,22 @@ public class CardManager : MonoBehaviour
             if (cardsMatch) 
             {
                 //add stack to player stack
-                PlayerStacks[CurrentPlayersTurn].Add(selectedCards.ToArray());
+
+                List<Card> cards = new();
+                foreach (CardObject card in selectedCards) 
+                {
+                    cards.Add(card.CardData);
+                }
+
+                PlayerStacks[CurrentPlayersTurn].Add(cards.ToArray());
 
                 for (int i = 0; i < selectedCards.Count; i++) 
                 {
                     PlayerCards[0].Remove(selectedCards[i].CardData);
                     Destroy(selectedCards[i].gameObject);
                 }
+
+                SpawnPile(0);
 
                 Debug.Log($"added stack of {lastCard.CardData.Rank}s for player {CurrentPlayersTurn}");
                 UpdatePlayerVisual();
@@ -343,6 +387,9 @@ public class CardManager : MonoBehaviour
 
     }
 
+    string[] turnPlayerNames = {"your" , "the Fisherman's", "the Widow's", "the Mother's"};
+    public Transform PilesParent;
+
     public void NextTurn()
     {
         if(Deck.Count < 1)
@@ -352,6 +399,9 @@ public class CardManager : MonoBehaviour
         }
 
         CurrentPlayersTurn = ++CurrentPlayersTurn%NumberOfPlayers;
+
+
+        TurnText.text = $"It's {turnPlayerNames[CurrentPlayersTurn]} turn.";
 
         Debug.Log("current players turn: " + CurrentPlayersTurn);
 
@@ -420,5 +470,19 @@ public class CardManager : MonoBehaviour
 
         //add card to player hand
         return card;
+    }
+
+    internal void AddStackForPlayer(int playerIndex, List<Card> list)
+    {
+        if (list.Count == 4)
+        {
+            PlayerStacks[playerIndex].Add(list.ToArray());
+            RemovePlayerCards(list.ToArray(), playerIndex);
+        }
+        else return;
+
+        SpawnPile(playerIndex);
+
+        
     }
 }

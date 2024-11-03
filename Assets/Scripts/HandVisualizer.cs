@@ -36,7 +36,7 @@ public class HandVisualizer : MonoBehaviour
     }
 
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (SelectedCards.Count <= 0 && ContextButton.gameObject.activeSelf)
         {

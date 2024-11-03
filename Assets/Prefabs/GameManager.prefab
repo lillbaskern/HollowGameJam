@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &285487055234627123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 467145985713376013}
+  - component: {fileID: 4175429616723327230}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &467145985713376013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285487055234627123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 127.368324, y: -7.9840198, z: -276.4732}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4175429616723327230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285487055234627123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42c59265e9684340900f95b9d910dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NumberOfDecks: 1
+  NumberOfPlayers: 4
+  CurrentPlayersTurn: 0
+  CardObject: {fileID: 6627364756559372571, guid: 86ea49a91022618428dbafea434aa917, type: 3}
+  CardSlotObject: {fileID: 5662601020749939868, guid: 68eff595cf5b64c43b92cc914e78c846, type: 3}
+  CardContainer: {fileID: 0}
+  PlayerHand: {fileID: 0}
+  ContextButton: {fileID: 0}
+  PlayerPromptPanel: {fileID: 0}
+  PilePrefab: {fileID: 5000916598683514248, guid: b3cda0001e729314c8592111ca7d365a, type: 3}
+  PileSpawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Canvas: {fileID: 0}
+  TurnText: {fileID: 0}
+  PileMoveSpeed: 0.02
+  PileThickness: 0.015
+  CanContinue: 0
+  PilesParent: {fileID: 0}
