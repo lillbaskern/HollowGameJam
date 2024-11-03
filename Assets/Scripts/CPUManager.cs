@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CPUManager
@@ -42,7 +43,7 @@ public class CPUManager
         {
             Debug.Log($"{list[0]}, {list.Count}");
         }
-
+        
 
         if (matches.Count > 0)
         {
@@ -59,25 +60,23 @@ public class CPUManager
             }
             int randomPlayer = Random.Range(0, CardManager.Instance.NumberOfPlayers);
 
-            CardManager.Instance.StartCoroutine(WaitBeforeAskForCard());
-            return;
-            IEnumerator WaitBeforeAskForCard()
+
+
+            if (randomPlayer == PlayerIndex)
             {
-                float randSecWait = Random.Range(0.6f, 3f);
-                yield return new WaitForSeconds(randSecWait);
-
-                if (randomPlayer == PlayerIndex)
-                {
-                    randomPlayer -= 1; //because human player is always 0
-                }
-                if (topMatch != -1 && matches[topMatch][0].Rank != LastAskedRank)
-                {
-
-                    CardManager.Instance.AskForCard(PlayerIndex, matches[topMatchIndex][0], randomPlayer);
-                }
-                else
-                    CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], randomPlayer);
+                randomPlayer -= 1; //because human player is always 0
             }
+            if (topMatch != -1 && matches[topMatch][0].Rank != LastAskedRank)
+            {
+                Debug.Log("matches found and this is first turn for cpu, asking for card from cpumanager");
+                CardManager.Instance.AskForCard(PlayerIndex, matches[topMatchIndex][0], randomPlayer);
+            }
+            else
+                CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], randomPlayer);
+
+
+            Debug.Log("asked for card from cpu manager after a match was found");
+            return;
         }
         
         
@@ -87,17 +86,8 @@ public class CPUManager
         {
             rndPlayer -= 1; //because human player is always 0
         }
-        CardManager.Instance.StartCoroutine(WaitBeforeAsk());
-        IEnumerator WaitBeforeAsk()
-        {
-            float randSecWait = Random.Range(0.6f, 3f);
-            yield return new WaitForSeconds(randSecWait);
-            CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], rndPlayer);
-        }
-
-        
-
-
+        Debug.Log("asking for card from cpu manager, no matches");
+        CardManager.Instance.AskForCard(PlayerIndex, cards[Random.Range(0, cards.Count)], rndPlayer);
     }
 
 }

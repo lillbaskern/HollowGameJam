@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Profiling.LowLevel;
 using UnityEngine;
 [DefaultExecutionOrder(1)]
 public class CardManager : MonoBehaviour
@@ -207,13 +208,43 @@ public class CardManager : MonoBehaviour
     }
 
 
+    string[] playerNames = new string[4] { "You", "Fisherman", "Widow", "Mrs." };
+
+
+    public bool CanContinue = false;
     public void AskForCard(int askingPlayer, Card card, int askedPlayer)
     {
-        if (card == null) return;
+        Debug.Log($"askforcard called. askingplayer = {askingPlayer}, card = {card}, askedplayer = {askedPlayer}");
+        StartCoroutine(AskForCardRoutine(askingPlayer, card, askedPlayer));
+    }
+
+    public IEnumerator AskForCardRoutine(int askingPlayer, Card card, int askedPlayer)
+    {
+        if (card == null) yield break;
 
         List<Card> foundCards = new List<Card>();
+
+        string prompt = $"{playerNames[askedPlayer]}...";
+        Debug.Log(prompt);
+
+
+        CanContinue = false;
+        DialogueManager.Instance.ShowPrompt(prompt);
+        AudioManager.Instance.PlaySound("ding");
+        yield return new WaitUntil(() => CanContinue);
+
+        
+        yield return new WaitUntil(() => CanContinue);
+        AudioManager.Instance.PlaySound("ding");
+        prompt = $"Do you have any {card.Rank}s?";
+        Debug.Log(prompt);
+
+        CanContinue = false;
+        DialogueManager.Instance.ShowPrompt(prompt);
+        yield return new WaitUntil(() => CanContinue);
+
         Debug.Log($"{askingPlayer} asking {askedPlayer} for any {card.Rank}s");
-        for (int i = 0; i < PlayerCards[askedPlayer].Count; i++) 
+        for (int i = 0; i < PlayerCards[askedPlayer].Count; i++)
         {
             if (PlayerCards[askedPlayer][i].Rank == card.Rank)
             {
@@ -221,23 +252,39 @@ public class CardManager : MonoBehaviour
                 foundCards.Add(PlayerCards[askedPlayer][i]);
             }
         }
+
+
+
+
         if (foundCards.Count > 0)
         {
+            prompt = "Yes, I do...";
+            Debug.Log(prompt);
+
+            CanContinue = false;
+            AudioManager.Instance.PlaySound("yes");
+            DialogueManager.Instance.ShowPrompt(prompt);
+            yield return new WaitUntil(() => CanContinue);
+
             foreach (Card c in foundCards)
             {
                 AddCard(c, askingPlayer);
             }
 
             RemovePlayerCards(foundCards.ToArray(), askedPlayer);
-            Debug.Log("du får kort");
-            if(CurrentPlayersTurn != 0)
+            if (CurrentPlayersTurn != 0)
             {
                 PromptCPU(CurrentPlayersTurn);
             }
-            return;
+            yield break;
         }
+        prompt = "No, go fish...";
+        Debug.Log(prompt);
 
-        Debug.Log("finns i sjön");
+        CanContinue = false;
+        DialogueManager.Instance.ShowPrompt(prompt);
+        AudioManager.Instance.PlaySound("no");
+        yield return new WaitUntil(() => CanContinue);
 
         AddCard(PullRandom(), askingPlayer);
 
@@ -264,6 +311,9 @@ public class CardManager : MonoBehaviour
                 currentLeaderStacks = PlayerStacks[i].Count;
             }
         }
+
+        if (currentLeader != 0)
+            AudioManager.Instance.PlaySound("lose");
         Debug.Log($"Game finished! Player {currentLeader} won! (0 is human)");
     }
 
