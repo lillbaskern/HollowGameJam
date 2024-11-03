@@ -33,13 +33,11 @@ public class HandVisualizer : MonoBehaviour
         SelectedCards = new List<CardObject>();
 
         UpdateHand();
-        gameOver = false;
     }
 
 
     private void FixedUpdate()
     {
-        if(gameOver) { return; }
         if (SelectedCards.Count <= 0 && ContextButton.gameObject.activeSelf)
         {
             ContextButton.gameObject.SetActive(false);
@@ -82,6 +80,7 @@ public class HandVisualizer : MonoBehaviour
                 matchCount++;
             lastCard = card;
         }
+        Debug.Log(matchCount);
         if (cardsMatch && matchCount >= 4 && CanShowButton)
         {
             ContextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Stack cards";
@@ -107,17 +106,9 @@ public class HandVisualizer : MonoBehaviour
         }
 
     }
-    bool gameOver = false;
-    public void GameOver()
-    {
-        gameOver = true;
-        CanShowButton = true;
-        ContextButton.gameObject.SetActive(true);
-        ContextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Main menu";
-    }
+
     public void UpdateHand(List<Card> cards)
     {
-        if (gameOver) return;
         foreach (var card in SelectedCards) 
         {
             card.selected = false;
