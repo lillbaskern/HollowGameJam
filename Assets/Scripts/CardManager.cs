@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Profiling.LowLevel;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 [DefaultExecutionOrder(1)]
 public class CardManager : MonoBehaviour
 {
@@ -141,6 +142,11 @@ public class CardManager : MonoBehaviour
 
     public void OnContextButtonClicked()
     {
+        if (gameOver)
+        {
+            SceneManager.LoadScene(0);
+            return;
+        }
         if (CurrentPlayersTurn != 0)
         {
             Debug.Log($"human player pressed button but it is {CurrentPlayersTurn}s turn!");
@@ -227,6 +233,7 @@ public class CardManager : MonoBehaviour
     public void AskForCard(int askingPlayer, Card card, int askedPlayer)
     {
         Debug.Log($"askforcard called. askingplayer = {askingPlayer}, card = {card.Rank}, askedplayer = {askedPlayer}");
+        HandVisualizer.Instance.CanShowButton = false;
         StartCoroutine(AskForCardRoutine(askingPlayer, card, askedPlayer));
     }
 
@@ -290,6 +297,8 @@ public class CardManager : MonoBehaviour
             {
                 PromptCPU(CurrentPlayersTurn);
             }
+            else HandVisualizer.Instance.CanShowButton = true;
+
             yield break;
         }
         prompt = "No, go fish...";
@@ -311,6 +320,7 @@ public class CardManager : MonoBehaviour
         ComputerPlayers[CurrentPlayersTurn - 1].ProcessTurn(PlayerCards[currentPlayersTurn]);
     }
 
+    bool gameOver = false;
     public void EndGame()
     {
         int currentLeader = -1;
@@ -329,7 +339,11 @@ public class CardManager : MonoBehaviour
 
         if (currentLeader != 0)
             AudioManager.Instance.PlaySound("lose");
+
+        DialogueManager.Instance.ShowWinText(playerNames[currentLeader]);
+
         Debug.Log($"Game finished! Player {currentLeader} won! (0 is human)");
+        gameOver = true;
     }
 
     public void AddCard(Card card, int player) 
