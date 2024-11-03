@@ -34,6 +34,10 @@ public class CPUManager
                     cardMatches.Add(cards[j]);
                 }
             }
+            if (cardMatches.Count > 1)
+            {
+                matches.Add(cardMatches);
+            }
         }
 
 
